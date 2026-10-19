@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover"/>
+  <meta name="theme-color" content="#132b29"/>
+  <title>WILDLANDS | 无垠之境</title>
+  <link rel="stylesheet" href="./src/style.css"/>
+  <script defer src="https://cdn.babylonjs.com/babylon.js"></script>
+  <script type="module" src="./src/main.js"></script>
+</head>
+<body>
+  <canvas id="game" aria-label="3D 开放世界游戏画面"></canvas>
+  <div class="shading"></div>
+  <header class="top ui">
+    <div class="brand"><div class="tiny-label">AN OPEN WORLD EXPEDITION</div><h1>WILD<span>LANDS</span></h1><p>无 垠 之 境</p></div>
+    <div class="top-controls"><div class="world-clock"><small>世界时间</small><strong id="clock">08:00</strong></div>
+    <button id="view" class="round" title="切换视角" aria-label="切换视角"><svg viewBox="0 0 24 24"><path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg></button>
+    <button id="settingsBtn" class="round" title="设置" aria-label="设置"><svg viewBox="0 0 24 24"><path d="M12 2v3m0 14v3M2 12h3m14 0h3M4.9 4.9 7 7m10 10 2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1"/><circle cx="12" cy="12" r="4"/></svg></button></div>
+  </header>
+  <aside class="minimap-wrap ui"><canvas id="minimap" width="128" height="128" aria-label="周围地形小地图"></canvas><div class="north">N</div></aside>
+  <div class="status ui"><div class="tiny-label">EXPLORATION / 探索记录</div><div class="biome" id="region">晨风草原</div><div class="data" id="coords">X 0 · Z 0 · 海拔 0</div><div class="data">采集晶石 <b id="collected">0</b> <span class="separator">·</span> 区域块 <b id="chunkCount">0</b></div><div class="stamina"><div id="staminaFill"></div></div></div>
+  <div class="desktop-help ui"><span>W A S D</span> 移动 <span>鼠标</span> 视角 <span>SHIFT</span> 奔跑 <span>SPACE</span> 跳跃 <span>F</span> 采集 <span>V</span> 视角 <span>ESC</span> 暂停</div>
+  <div class="crosshair"></div>
+  <div class="interact-hint ui" id="interactHint"></div>
+  <div class="mobile ui" id="mobileControls"><div id="joystick" class="joystick" aria-label="移动摇杆"><div id="knob"></div></div><div class="mobile-buttons">
+    <button class="action" id="mobileInteract" aria-label="交互采集"><svg viewBox="0 0 24 24"><path d="M12 21 4 13l8-10 8 10-8 8Z"/><path d="M4 13h16M12 3l-3 10 3 8 3-8-3-10"/></svg><small>采集</small></button>
+    <button class="action" id="mobileJump" aria-label="跳跃"><svg viewBox="0 0 24 24"><path d="M12 20V4m-7 7 7-7 7 7"/></svg><small>跳跃</small></button>
+    <button class="action" id="mobileRun" aria-label="奔跑"><svg viewBox="0 0 24 24"><path d="m3 19 6-5 3 2 4-5m-1-6 3 1 3 5M9 7l2-3 4 1-2 5-3 1"/></svg><small>奔跑</small></button>
+  </div></div>
+  <div id="toast" class="toast" role="status"></div>
+  <section id="start" class="overlay"><div class="hero"><div class="orb"><svg viewBox="0 0 72 72"><circle cx="36" cy="36" r="30"/><path d="M12 46 31 17l9 15 6-6 14 22M20 54h32"/></svg></div><div class="tiny-label">PROCEDURAL WILDERNESS · BABYLON.JS</div><h2>WILD<b>LANDS</b></h2><div class="chinese">无 垠 之 境</div><p>翻过山脊，穿行林间。世界会随你的脚步不断延伸。<br>没有城市与建筑，只有大地、天空与等待发现的晶石。</p><button id="startBtn" class="primary" disabled>正在准备世界...</button><div id="startTip" class="tip">首次游玩需要连接网络加载 Babylon.js</div></div></section>
+  <section class="settings-overlay" id="settings"><div class="settings-card"><div class="tiny-label">WORLD SETTINGS</div><h2>探索设置</h2><label for="range">景观加载范围</label><select id="range"><option value="1">省电 · 近景</option><option value="2">平衡 · 标准</option><option value="3">高画质 · 远景</option></select><label for="quality">渲染分辨率</label><select id="quality"><option value="1.65">性能优先</option><option value="1.25">平衡</option><option value="1">清晰</option></select><label for="timeRate">世界时间</label><select id="timeRate"><option value="0">停止</option><option value="1" selected>正常</option><option value="5">加速</option></select><button class="primary" id="resume">继续探索</button><p class="settings-info">当前版本为轻量开放世界原型；物理使用基础地形与障碍碰撞，尚未接入 Havok。</p></div></section>
+  <div id="error" class="error" hidden><h2>暂时无法启动世界</h2><p id="errorMessage"></p><button onclick="location.reload()" class="primary">重新加载</button></div>
+</body>
+</html>
